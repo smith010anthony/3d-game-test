@@ -1,0 +1,226 @@
+<!-- Copyright Epic Games, Inc. All Rights Reserved. -->
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<!--I might delete all Bootstrap in the near future -->
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+		integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+		integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+	
+	<link type="text/css" rel="stylesheet" href="./assets/css/web-mvp.css">
+	<link rel="stylesheet" href="https://unpkg.com/microtip/microtip.css">
+	<link href="./assets/icons/feather.css" type="text/css" rel="stylesheet" media="all">
+
+	<title>SphereXR Portal</title>
+	<meta name="description" content="...." />
+	<meta name="keywords" content="...." />
+
+	<link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+	<!-- <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"> -->
+	
+	<script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	<script type="text/javascript" src="./assets/js/web-mvp.js"></script>
+	<script type="text/javascript" src="./assets/js/webRtcPlayer.js"></script>
+	<script type="text/javascript" src="./assets/js/app.js"></script>
+
+</head>
+
+<!-- <body onload="load()"> -->
+	<body onload="load(); onInteract()">
+
+	<script type="module" src="https://portal-dev.spherexr.io/app/index.js"></script>
+<div class="center">
+	<div class="wrapper">
+		<nav id="sidebar">
+			<div id="sidebarContent">
+				<div class="sidebar-header">
+					<a class="c-header__logo" href="index.html"><img src="assets/svg/logo.svg" alt="logotipo"></a>
+				</div>
+				<div class="avatar">
+						<div class="avatar-image">
+							<img src="assets/images/user.png" alt="usuario">
+							<span class="avatar-state"></span>
+						</div>
+						<div class="avatar-info">
+							<div id="avatar-name">John Smith</div>
+							<div id="avatar-rol">Teacher</div>
+						</div>
+				</div>
+				<div class="sidebar-menu">
+				<ul>
+						<li>
+							<!-- <a href="#" onclick="onUICommand(1,1)">Dashboard</a> -->
+							<a class="sidebar-item" href="#" onclick="menuActive(this);openMenu()">
+									<i class="sidebar-menu-icon feather icon-pie-chart"></i>
+									Dashboard</a>
+						</li>
+						<li>
+							<!-- <a href="#" onclick="onUICommand(1,2)">Virtual Tour</a> -->
+							<a class="sidebar-item is-active" href="#" onclick="menuActive(this)">
+									<i class="sidebar-menu-icon feather icon-video"></i>
+									Virtual tour</a>
+						</li>
+						<li>
+								<a class="sidebar-item" href="#" onclick="onUICommand(0,3)">
+									<i class="sidebar-menu-icon feather icon-user"></i>
+									User</a>
+							</li>
+							<li>
+								<a class="sidebar-item" href="#" onclick="menuActive(this);openMenu()">
+									<i class="sidebar-menu-icon feather icon-book-open"></i>
+									Class</a>
+							</li>
+							<li>
+								<a class="sidebar-item" href="#" onclick="onUICommand(0,1)">
+									<i class="sidebar-menu-icon feather icon-archive"></i>
+									Library</a>
+							</li>
+				</ul>
+				</div>
+
+			</div>
+			<div id="logout">
+				<ul>
+						<li>
+							<a class="d-flex align-items-center" href="#">
+								<i class="sidebar-menu-icon feather icon-arrow-left-circle"></i>
+								Sign Out</a>
+						</li>
+				</ul>
+				<ul class="o-social u-flex__sm">
+					<li class="o-social__item">
+						<a class="o-social__link" target="_blank" title="facebook"
+							href="https://www.facebook.com/Spherexr-105501831518140">
+							<i class="o-social__link-icon feather icon-facebook"></i>
+							<!-- <i class="o-social__link-icon--top feather icon-facebook"></i> -->
+						</a>
+					</li>
+					<li class="o-social__item">
+						<a class="o-social__link" target="_blank" title="linkedin"
+							href="https://www.linkedin.com/company/spherexr/">
+							<i class="o-social__link-icon feather icon-linkedin"></i>
+							<!-- <i class="o-social__link-icon--top feather icon-linkedin"></i> -->
+						</a>
+					</li>
+				</ul>
+
+			</div>
+		</nav>
+		<div id="content" class="position-relative">
+
+			<div class="container">
+				<!-- On Top of PixelStreaming Window-->
+				<div id="banner">
+					<!-- <h1>Hello,</h1> -->
+					<h2>Welcome sphereXR user!</h2>
+				</div>
+
+				<!-- Player Streaming -->
+				<!-- Esta es la parte donde comenté el div que tiene el "fixed-size" -->
+				<!-- <div id="player" class="fixed-size"> -->
+				<div class="position-relative">
+				<div id="player">
+					<div id="configuration">
+						<!-- <div id="button" type="button" onclick="onConfigurationOne()">Option One</div>
+						<div id="button" type="button" onclick="onConfigurationTwo()">Option Two</div> -->
+						<div id="ck-fullscreen">
+							<img src="images/MaximiseToFullscreen.png" alt="Maximise to Fullscreen"
+								id="fullscreen-img" class="fullscreen-btn">
+						</div>
+					</div>
+				</div>
+				<div class="controls">
+							<button onclick="onUICommand(2,2); changeControl(this,2)"  class="controls-item btn" aria-label="Turn off" data-microtip-position="top" role="tooltip">
+								<i class="controls-icon feather controls-icon-ligth"></i>
+								<span>Ligth</span>
+							</button>
+							<button onclick=" onUICommand(6,2); changeControl(this,2)" class="controls-item btn" aria-label="Without sound" data-microtip-position="top" role="tooltip">
+								<i class="controls-icon feather controls-icon-sound"></i>
+								<span>Sound</span>
+							</button>
+							<button onclick=" onUICommand(3,2); changeControl(this,2)" class="controls-item btn" aria-label="Third person perspective" data-microtip-position="top" role="tooltip">
+								<i class="controls-icon feather controls-icon-view"></i>
+								<span>Zoom</span>
+							</button>
+							<button onclick="onUICommand(4,2); changeControl(this,4)" class="controls-item btn" aria-label="Game mode" data-microtip-position="top" role="tooltip">
+								<i class="controls-icon feather controls-icon-navigation"></i>
+								<span>Navigation</span>
+							</button>
+							<!-- Add goLobby -->
+						</div>
+							<div class="classroom">
+						</div>
+                  </div>
+               </div>
+
+			   <div class="all-webcams">
+				<!--
+				<div id="webcam-border" class="webcam">
+				</div>
+				<div class="webcam"></div>
+				<div class="webcam"></div>
+				<div class="webcam"></div>		
+				-->
+				</div>
+				<div id="overlay" class="overlay">
+					<div>
+						<div id="qualityStatus" class="greyStatus">&#9679</div>
+						<div id="overlayButton">+</div>
+					</div>
+					<div id="overlaySettings">
+						<div id="TestButton">
+							<div class="settings-text">Test Button</div>
+							<label class="btn-overlay">
+								<input type="button" id="TestButtonId" class="overlay-button btn-flat" value="DoIt">
+							</label>
+						</div> 
+						<div id="KickOthers">
+							<div class="settings-text">Kick alll other players</div>
+							<label class="btn-overlay">
+								<input type="button" id="kick-other-players-button" class="overlay-button btn-flat"
+									value="Kick">
+							</label>
+						</div>
+						<div id="FillWindow">
+							<div class="settings-text">Enlarge Display to Fill Window</div>
+							<label class="tgl-switch">
+								<input type="checkbox" id="enlarge-display-to-fill-window-tgl" class="tgl tgl-flat">
+								<div class="tgl-slider"></div>
+							</label>
+						</div>
+						<div id="QualityControlOwnership">
+							<div class="settings-text">Quality control ownership</div>
+							<label class="tgl-switch">
+								<input type="checkbox" id="quality-control-ownership-tgl" class="tgl tgl-flat">
+								<div class="tgl-slider"></div>
+							</label>
+						</div>
+						<div id="statsSetting">
+							<div class="settings-text">Show Stats</div>
+							<label class="tgl-switch">
+								<input type="checkbox" id="show-stats-tgl" class="tgl tgl-flat" checked>
+								<div class="tgl-slider"></div>
+							</label>
+							<div id="statsContainer">
+								<div id="stats"></div>
+							</div>
+						</div>
+				</div>
+				
+			</div>
+			<div class="classroom">
+			</div>
+		</div>
+		</div>
+		
+	</div>
+</div>
+</body>
+
+</html>
